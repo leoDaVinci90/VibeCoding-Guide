@@ -107,15 +107,17 @@
   background: var(--color-action);
 }
 .codeKeyLabel {
-  font-size: var(--text-sm);
+  display: block;
+  font-size: 1rem; /* 16px */
   font-weight: var(--weight-semibold);
   color: var(--color-text);
 }
 .codeKeyText {
-  font-size: var(--text-xs);
+  display: block;
+  font-size: 0.875rem; /* 14px */
   color: var(--color-text-muted);
   line-height: var(--leading-snug);
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 /* --- Two-up compare (this vs that) ------------------------------------------ */
