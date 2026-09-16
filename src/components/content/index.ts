@@ -9,6 +9,8 @@ export {
   Divider,
   Grid,
   Stack,
+  CardGrid,
+  Measure,
   Figure,
   Steps,
   type StepItem,

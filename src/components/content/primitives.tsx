@@ -146,6 +146,16 @@ export function Stack({
   );
 }
 
+/** Auto-fitting card grid — fills the column with as many columns as fit. */
+export function CardGrid({ children }: { children: ReactNode }) {
+  return <div className={s.cardGrid}>{children}</div>;
+}
+
+/** Constrains long-form flow to a comfortable reading measure. */
+export function Measure({ children }: { children: ReactNode }) {
+  return <div className={s.measure}>{children}</div>;
+}
+
 /* --- Figure ----------------------------------------------------------------- */
 export function Figure({
   caption,

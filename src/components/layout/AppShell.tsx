@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import { Sidebar } from "./Sidebar";
+import { RightToc } from "./RightToc";
 import { ThemeToggle } from "./ThemeToggle";
 import { allSectionIds, chapters } from "@/data/guide";
 import { useScrollSpy } from "@/lib/useScrollSpy";
@@ -109,6 +110,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         )}
       </AnimatePresence>
 
+      <div className={styles.page}>
       {/* Sidebar */}
       <aside className={styles.sidebar} aria-label="Primary">
         <div className={styles.brand}>
@@ -216,9 +218,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </header>
 
-        <main id="content" className={styles.content}>
-          {children}
-        </main>
+        <div className={styles.layout}>
+          <main id="content" className={styles.article}>
+            {children}
+          </main>
+          <RightToc activeId={activeId} />
+        </div>
+      </div>
       </div>
     </div>
   );

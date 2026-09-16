@@ -2,7 +2,7 @@ import {
   Section,
   SectionHeader,
   Subhead,
-  Stack,
+  CardGrid,
   Callout,
   TermCard,
   DataTable,
@@ -34,7 +34,7 @@ export function Terminology() {
         title="The foundations"
         note="What the technology is, and the raw materials it works with."
       />
-      <Stack gap={4}>
+      <CardGrid>
         <TermCard
           name="Artificial Intelligence"
           sub="AI"
@@ -178,7 +178,7 @@ export function Terminology() {
             },
           ]}
         />
-      </Stack>
+      </CardGrid>
 
       {/* GROUP B — How you talk to it */}
       <Subhead
@@ -188,7 +188,7 @@ export function Terminology() {
         title="How you talk to it"
         note="The vocabulary of instructing a model — and its most famous failure mode."
       />
-      <Stack gap={4}>
+      <CardGrid>
         <TermCard
           name="Prompt"
           tags={[{ label: "Section 02", tone: "essential" }]}
@@ -271,7 +271,7 @@ export function Terminology() {
             },
           ]}
         />
-      </Stack>
+      </CardGrid>
 
       {/* GROUP C — Tools & autonomy */}
       <Subhead
@@ -281,7 +281,7 @@ export function Terminology() {
         title="Tools & autonomy"
         note="The ladder from “answers your question” to “does the job for you.” This distinction matters most in vibe coding."
       />
-      <Stack gap={4}>
+      <CardGrid>
         <TermCard
           name="AI Assistant"
           tags={[{ label: "Autonomy · Low", tone: "context" }]}
@@ -324,7 +324,7 @@ export function Terminology() {
             },
           ]}
         />
-      </Stack>
+      </CardGrid>
 
       <div style={{ marginTop: "var(--space-6)" }}>
         <DataTable
@@ -378,7 +378,7 @@ export function Terminology() {
       </div>
 
       <div style={{ marginTop: "var(--space-6)" }}>
-        <Stack gap={4}>
+        <CardGrid>
           <TermCard
             name="MCP"
             sub="Model Context Protocol"
@@ -447,7 +447,7 @@ export function Terminology() {
               },
             ]}
           />
-        </Stack>
+        </CardGrid>
       </div>
 
       {/* GROUP D — The frontier */}
@@ -458,7 +458,7 @@ export function Terminology() {
         title="The frontier"
         note="Two terms you'll hear in the news. Neither exists today — knowing that is the point."
       />
-      <Stack gap={4}>
+      <CardGrid>
         <TermCard
           name="AGI"
           sub="Artificial General Intelligence"
@@ -488,7 +488,7 @@ export function Terminology() {
             },
           ]}
         />
-      </Stack>
+      </CardGrid>
 
       <div id="terminology-study" className={s.leadBlock} style={{ marginTop: "var(--space-8)" }}>
         <Callout tone="essential" title="Study check · Terminology">

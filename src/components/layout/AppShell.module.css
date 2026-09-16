@@ -1,12 +1,24 @@
 .shell {
   --current-sidebar: var(--sidebar-width);
+  position: relative;
+  background: var(--color-bg);
 }
 
 .shell[data-collapsed] {
   --current-sidebar: var(--sidebar-width-collapsed);
 }
 
-/* Reading progress bar pinned to the very top */
+/* Centred documentation page, capped at --page-max on ultra-wide screens */
+.page {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  min-height: 100dvh;
+}
+
+/* Reading progress bar pinned to the very top of the viewport */
 .progress {
   position: fixed;
   top: 0;
@@ -18,19 +30,21 @@
   transform-origin: 0 50%;
 }
 
-/* --- Sidebar ---------------------------------------------------------------- */
+/* --- Sidebar (sticky column) ------------------------------------------------ */
 .sidebar {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  bottom: 0;
-  width: var(--current-sidebar);
   z-index: 50;
+  flex: 0 0 var(--current-sidebar);
+  width: var(--current-sidebar);
+  align-self: stretch;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   background: var(--color-surface);
   border-right: var(--border-hair) solid var(--color-border-subtle);
-  transition: width var(--dur-base) var(--ease-out),
+  transition: flex-basis var(--dur-base) var(--ease-out),
+    width var(--dur-base) var(--ease-out),
     transform var(--dur-base) var(--ease-out);
 }
 
@@ -114,7 +128,9 @@
   background: var(--color-surface-hover);
 }
 
-.shell[data-collapsed] .railToggle {
+/* Collapsed rail: the brand mark gives way to the expand toggle, so there is
+   always a visible control to open the sidebar again. */
+.shell[data-collapsed] .brandMark {
   display: none;
 }
 
@@ -144,11 +160,11 @@
 
 /* --- Main column ------------------------------------------------------------ */
 .main {
-  margin-left: var(--current-sidebar);
+  flex: 1 1 auto;
+  min-width: 0;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  transition: margin-left var(--dur-base) var(--ease-out);
 }
 
 .topbar {
@@ -160,8 +176,8 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
-  padding: 0 clamp(var(--space-4), 4vw, var(--space-8));
-  background: color-mix(in srgb, var(--color-bg) 82%, transparent);
+  padding: 0 var(--gutter);
+  background: color-mix(in srgb, var(--color-bg) 80%, transparent);
   backdrop-filter: saturate(1.4) blur(14px);
   -webkit-backdrop-filter: saturate(1.4) blur(14px);
   border-bottom: var(--border-hair) solid var(--color-border-subtle);
@@ -239,9 +255,24 @@
   gap: var(--space-2);
 }
 
-.content {
+/* Content layout: article fills, "On this page" rail on the right */
+.layout {
   flex: 1 1 auto;
   width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 0 var(--gutter);
+}
+
+@media (min-width: 1180px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) var(--toc-width);
+    column-gap: clamp(var(--space-6), 4vw, var(--space-9));
+  }
+}
+
+.article {
+  min-width: 0;
 }
 
 .overlay {
@@ -250,8 +281,18 @@
 
 /* --- Responsive: drawer sidebar --------------------------------------------- */
 @media (max-width: 900px) {
+  .page {
+    display: block;
+  }
+
   .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100dvh;
     width: min(86vw, 320px);
+    flex-basis: auto;
     transform: translateX(-102%);
     box-shadow: var(--shadow-lg);
   }
@@ -260,9 +301,12 @@
     transform: translateX(0);
   }
 
-  /* On mobile, the rail-collapse concept doesn't apply. */
+  /* On mobile the rail-collapse concept doesn't apply. */
   .shell[data-collapsed] {
     --current-sidebar: var(--sidebar-width);
+  }
+  .shell[data-collapsed] .sidebar {
+    width: min(86vw, 320px);
   }
   .shell[data-collapsed] .brand {
     padding: 0 var(--space-3) 0 var(--space-4);
@@ -270,10 +314,6 @@
   }
   .shell[data-collapsed] .brandText {
     display: flex;
-  }
-
-  .main {
-    margin-left: 0;
   }
 
   .menuButton {

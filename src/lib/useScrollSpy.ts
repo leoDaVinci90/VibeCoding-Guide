@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 
 /**
  * Tracks which section id is currently "active" while scrolling.
- * Observes every element whose id is in `ids` and reports the one nearest
- * the top of the viewport (just below the fixed header).
+ * Elements are queried live on every frame (rather than cached at mount) so the
+ * spy stays correct through hydration, deep-links and layout shifts.
+ *
+ * `ids` must be in document order.
  */
 export function useScrollSpy(ids: string[], headerOffset = 96): string | null {
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -13,46 +15,38 @@ export function useScrollSpy(ids: string[], headerOffset = 96): string | null {
   useEffect(() => {
     if (ids.length === 0) return;
 
-    const elements = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
-
-    if (elements.length === 0) return;
-
-    let ticking = false;
+    let raf = 0;
 
     const compute = () => {
-      ticking = false;
-      // Trigger line sits a little below the header, scaled to the viewport so a
-      // heading becomes "active" as it settles into the upper reading area —
-      // and so clicking an anchor reliably activates its target.
+      raf = 0;
+      // Trigger line sits below the header, scaled to the viewport so a heading
+      // becomes active as it enters the upper reading area.
       const line = headerOffset + window.innerHeight * 0.16;
-      let current: string | null = elements[0]?.id ?? null;
+      let current: string | null = null;
 
-      for (const el of elements) {
-        const top = el.getBoundingClientRect().top;
-        if (top - line <= 0) {
-          current = el.id;
-        } else {
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top - line <= 0) {
+          current = id;
+        } else if (current !== null) {
           break;
         }
       }
 
-      // Snap to the last section when the page is scrolled to the very bottom.
-      const scrollBottom = window.scrollY + window.innerHeight;
-      const docHeight = document.documentElement.scrollHeight;
-      if (docHeight - scrollBottom < 4) {
-        current = elements[elements.length - 1]?.id ?? current;
-      }
+      if (current === null) current = ids[0];
 
-      setActiveId(current);
+      // Snap to the final section when the page is scrolled to the very bottom.
+      const scrolledToBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 2;
+      if (scrolledToBottom) current = ids[ids.length - 1];
+
+      setActiveId((prev) => (prev === current ? prev : current));
     };
 
     const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(compute);
-      }
+      if (!raf) raf = requestAnimationFrame(compute);
     };
 
     compute();
@@ -61,6 +55,7 @@ export function useScrollSpy(ids: string[], headerOffset = 96): string | null {
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
     };
   }, [ids, headerOffset]);
 

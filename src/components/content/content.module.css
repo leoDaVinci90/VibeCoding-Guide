@@ -6,8 +6,7 @@
 /* --- Section scaffolding ---------------------------------------------------- */
 .section {
   scroll-margin-top: calc(var(--header-height) + var(--space-6));
-  padding: clamp(var(--space-8), 7vw, var(--space-11))
-    clamp(var(--space-4), 5vw, var(--space-9));
+  padding: clamp(var(--space-9), 6.5vw, 6.5rem) 0;
   border-top: var(--border-hair) solid var(--color-border-subtle);
 }
 
@@ -15,13 +14,19 @@
   border-top: none;
 }
 
+/* Article content now fills the documentation column; individual reading
+   blocks are constrained to a comfortable measure inside it. */
 .inner {
-  max-width: var(--content-max);
-  margin: 0 auto;
+  max-width: none;
 }
 
 .inner[data-width="wide"] {
-  max-width: var(--content-wide);
+  max-width: none;
+}
+
+/* Reading-width wrapper for long-form flow (prose, callouts, single figures) */
+.measure {
+  max-width: var(--measure-wide);
 }
 
 .anchor {
@@ -89,6 +94,7 @@
   color: var(--color-text-secondary);
   font-size: var(--text-md);
   line-height: var(--leading-relaxed);
+  max-width: var(--measure);
 }
 
 .prose > * + * {
@@ -258,6 +264,20 @@
   }
 }
 
+/* Auto-fitting card grid — fills the documentation column with as many
+   columns as comfortably fit. */
+.cardGrid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
+@media (max-width: 440px) {
+  .cardGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* --- Callout ---------------------------------------------------------------- */
 .callout {
   position: relative;
@@ -267,6 +287,7 @@
   border-radius: var(--radius-md);
   border: var(--border-hair) solid var(--color-border);
   background: var(--color-surface);
+  max-width: var(--measure-wide);
 }
 
 .callout::before {
@@ -366,6 +387,8 @@
 
 /* --- Term card -------------------------------------------------------------- */
 .term {
+  container-type: inline-size;
+  height: 100%;
   padding: var(--space-5);
   border-radius: var(--radius-md);
   border: var(--border-hair) solid var(--color-border-subtle);
@@ -423,10 +446,10 @@
   gap: var(--space-3);
 }
 
-@media (min-width: 560px) {
+@container (min-width: 460px) {
   .termMeta[data-cols="2"] {
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-4);
+    gap: var(--space-5);
   }
 }
 
@@ -465,6 +488,7 @@
   border: var(--border-hair) solid var(--color-border);
   background: var(--color-code-bg);
   box-shadow: var(--shadow-sm);
+  max-width: var(--measure-wide);
 }
 
 .codeHead {
@@ -684,8 +708,9 @@
 .steps {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-5);
   counter-reset: step;
+  max-width: var(--measure-wide);
 }
 
 .step {

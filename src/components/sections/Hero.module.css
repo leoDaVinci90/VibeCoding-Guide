@@ -1,8 +1,7 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(var(--space-9), 12vw, var(--space-12))
-    clamp(var(--space-4), 5vw, var(--space-9)) clamp(var(--space-8), 8vw, var(--space-10));
+  padding: clamp(var(--space-9), 10vw, 9rem) 0 clamp(var(--space-8), 8vw, var(--space-10));
   border-bottom: var(--border-hair) solid var(--color-border-subtle);
   background:
     radial-gradient(
@@ -40,8 +39,13 @@
 
 .inner {
   position: relative;
-  max-width: var(--content-wide);
-  margin: 0 auto;
+  max-width: none;
+}
+
+.lede,
+.overline,
+.kicker {
+  max-width: 52ch;
 }
 
 .kicker {

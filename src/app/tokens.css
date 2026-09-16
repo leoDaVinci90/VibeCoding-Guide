@@ -122,12 +122,19 @@
   --shadow-md: 0 8px 24px rgba(20, 18, 16, 0.08), 0 2px 6px rgba(20, 18, 16, 0.05);
   --shadow-lg: 0 20px 48px rgba(20, 18, 16, 0.12), 0 6px 14px rgba(20, 18, 16, 0.06);
 
-  /* Layout */
+  /* Layout — documentation shell */
+  --page-max: 1920px; /* app caps here, centred beyond */
   --sidebar-width: 300px;
   --sidebar-width-collapsed: 76px;
-  --content-max: 720px;
+  --toc-width: 236px;
+  --header-height: 64px;
+  --gutter: clamp(24px, 3.4vw, 64px); /* horizontal breathing inside the content */
+
+  /* Reading measures */
+  --measure: 72ch; /* long-form prose */
+  --measure-wide: 58rem; /* callouts, code, single figures */
+  --content-max: 720px; /* legacy alias */
   --content-wide: 940px;
-  --header-height: 60px;
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

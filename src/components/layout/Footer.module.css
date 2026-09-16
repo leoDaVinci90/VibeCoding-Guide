@@ -1,13 +1,11 @@
 .footer {
   border-top: var(--border-hair) solid var(--color-border-subtle);
   background: var(--color-bg-sunken);
-  padding: clamp(var(--space-6), 5vw, var(--space-8))
-    clamp(var(--space-4), 5vw, var(--space-9));
+  padding: clamp(var(--space-6), 5vw, var(--space-8)) 0;
 }
 
 .inner {
-  max-width: var(--content-wide);
-  margin: 0 auto;
+  max-width: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
