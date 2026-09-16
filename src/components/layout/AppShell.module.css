@@ -255,24 +255,17 @@
   gap: var(--space-2);
 }
 
-/* Content layout: article fills, "On this page" rail on the right */
+/* Content layout: a single article column that fills the width */
 .layout {
   flex: 1 1 auto;
   width: 100%;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
   padding: 0 var(--gutter);
-}
-
-@media (min-width: 1180px) {
-  .layout {
-    grid-template-columns: minmax(0, 1fr) var(--toc-width);
-    column-gap: clamp(var(--space-6), 4vw, var(--space-9));
-  }
 }
 
 .article {
   min-width: 0;
+  max-width: var(--content-column);
+  margin: 0 auto;
 }
 
 .overlay {

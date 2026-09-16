@@ -126,7 +126,7 @@
   --page-max: 1920px; /* app caps here, centred beyond */
   --sidebar-width: 300px;
   --sidebar-width-collapsed: 76px;
-  --toc-width: 236px;
+  --content-column: 1240px; /* max width of the article column */
   --header-height: 64px;
   --gutter: clamp(24px, 3.4vw, 64px); /* horizontal breathing inside the content */
 
