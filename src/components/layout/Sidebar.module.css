@@ -1,0 +1,212 @@
+.nav {
+  padding: var(--space-4) var(--space-3) var(--space-8);
+}
+
+.tree {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.chapter {
+  position: relative;
+}
+
+/* --- Chapter row ------------------------------------------------------------ */
+.chapterRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-sm);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.chapterRow:hover {
+  background: var(--color-surface-hover);
+}
+
+.chapterRowActive {
+  background: var(--color-surface-hover);
+}
+
+.chapterLink {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 9px 10px;
+  color: var(--color-text-secondary);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.chapterRow[data-collapsed] .chapterLink {
+  justify-content: center;
+  padding: 11px 0;
+}
+
+.chapterRow:hover .chapterLink,
+.chapterRowActive .chapterLink {
+  color: var(--color-text);
+}
+
+.chapterIcon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  color: var(--color-text-muted);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.chapterRow:hover .chapterIcon,
+.chapterRowActive .chapterIcon {
+  color: var(--color-text);
+}
+
+.chapterText {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.chapterIndex {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.04em;
+  color: var(--color-text-faint);
+}
+
+.chapterRowActive .chapterIndex {
+  color: var(--color-essential);
+}
+
+.chapterLabel {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-tight);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activeRail {
+  position: absolute;
+  left: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 18px;
+  border-radius: var(--radius-full);
+  background: var(--color-essential);
+}
+
+/* --- Disclosure chevron ----------------------------------------------------- */
+.disclosure {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 34px;
+  margin-right: 2px;
+  color: var(--color-text-faint);
+  border-radius: var(--radius-xs);
+  transition: color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+
+.disclosure:hover {
+  color: var(--color-text);
+  background: var(--color-surface-active);
+}
+
+.chevron {
+  display: grid;
+  place-items: center;
+}
+
+/* --- Children --------------------------------------------------------------- */
+.children {
+  overflow: hidden;
+}
+
+.childrenInner {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 3px 0 6px;
+  padding-left: 21px;
+  position: relative;
+}
+
+/* the vertical guide line of the tree */
+.childrenInner::before {
+  content: "";
+  position: absolute;
+  left: 21px;
+  top: 4px;
+  bottom: 4px;
+  width: var(--border-hair);
+  background: var(--color-border-subtle);
+}
+
+.childLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 7px 10px 7px 16px;
+  margin-left: 0;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  transition: color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+
+.childLink:hover {
+  color: var(--color-text);
+  background: var(--color-surface-hover);
+}
+
+.childLinkActive {
+  color: var(--color-text);
+}
+
+.childDot {
+  position: absolute;
+  left: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-border-strong);
+  box-shadow: 0 0 0 3px var(--color-bg);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.childLink:hover .childDot {
+  background: var(--color-text-muted);
+}
+
+.childLinkActive .childDot {
+  background: var(--color-essential);
+}
+
+.childLabel {
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.35;
+}
+
+.childActiveBar {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-active);
+  z-index: -1;
+}

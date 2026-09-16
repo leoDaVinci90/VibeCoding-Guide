@@ -1,0 +1,269 @@
+/* =============================================================================
+   DESIGN TOKENS — Vibe Coding Field Guide
+   Swiss minimalism × Apple 2026 visual identity.
+
+   Architecture:
+     1. PRIMITIVES  — raw, context-free values (never used directly in components)
+     2. SEMANTIC    — meaning-based aliases mapped from primitives (use these)
+     3. THEMES      — semantic remaps for light / dark
+   ========================================================================== */
+
+:root {
+  /* ---------------------------------------------------------------------------
+     1 · PRIMITIVES
+     ------------------------------------------------------------------------ */
+
+  /* Neutral ramp — a warm, near-achromatic grey scale (Swiss paper & ink) */
+  --gray-0: #ffffff;
+  --gray-25: #fbfbfa;
+  --gray-50: #f6f6f4;
+  --gray-100: #eeeeec;
+  --gray-150: #e6e6e2;
+  --gray-200: #dcdcd7;
+  --gray-300: #c4c4bd;
+  --gray-400: #a3a39a;
+  --gray-500: #82827a;
+  --gray-600: #62625c;
+  --gray-700: #474743;
+  --gray-800: #2f2f2c;
+  --gray-850: #232320;
+  --gray-900: #191917;
+  --gray-950: #121210;
+  --gray-975: #0d0d0b;
+
+  /* Accent primitives — the guide's editorial colour code */
+  --red-500: #d43a2f;   /* essentials  */
+  --red-400: #e0554b;
+  --red-300: #f0a49e;
+  --red-tint: #fbeae8;
+  --red-tint-dark: #3a1a17;
+
+  --blue-500: #2f6bd4;  /* context & asides */
+  --blue-400: #4c86e8;
+  --blue-300: #a6c2f0;
+  --blue-tint: #e8eefb;
+  --blue-tint-dark: #16233a;
+
+  --green-500: #2e8b57; /* do this */
+  --green-400: #37a568;
+  --green-300: #a3d8bc;
+  --green-tint: #e6f4ec;
+  --green-tint-dark: #163024;
+
+  --amber-500: #b7791f; /* watch out */
+  --amber-tint: #f6edd8;
+  --amber-tint-dark: #33280f;
+
+  /* Typography primitives */
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), "SF Mono", "JetBrains Mono", ui-monospace,
+    Menlo, Monaco, "Cascadia Code", monospace;
+
+  /* Modular type scale (1.200 minor third, base 16px) */
+  --text-2xs: 0.6875rem;  /* 11 */
+  --text-xs: 0.75rem;     /* 12 */
+  --text-sm: 0.8125rem;   /* 13 */
+  --text-base: 0.9375rem; /* 15 */
+  --text-md: 1.0625rem;   /* 17 */
+  --text-lg: 1.25rem;     /* 20 */
+  --text-xl: 1.5rem;      /* 24 */
+  --text-2xl: 1.9375rem;  /* 31 */
+  --text-3xl: 2.5rem;     /* 40 */
+  --text-4xl: 3.25rem;    /* 52 */
+  --text-5xl: 4.25rem;    /* 68 */
+
+  --leading-tight: 1.08;
+  --leading-snug: 1.28;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.72;
+
+  --tracking-tighter: -0.03em;
+  --tracking-tight: -0.015em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.02em;
+  --tracking-caps: 0.14em;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Spacing scale (4px base) */
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.5rem;
+  --space-8: 3rem;
+  --space-9: 4rem;
+  --space-10: 5.5rem;
+  --space-11: 7rem;
+  --space-12: 9rem;
+
+  /* Radii — restrained, Apple-soft but not pill */
+  --radius-xs: 4px;
+  --radius-sm: 7px;
+  --radius-md: 11px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-full: 999px;
+
+  /* Border widths */
+  --border-hair: 1px;
+  --border-thin: 1.5px;
+
+  /* Elevation — soft, low-contrast (premium restraint) */
+  --shadow-xs: 0 1px 2px rgba(20, 18, 16, 0.05);
+  --shadow-sm: 0 2px 8px rgba(20, 18, 16, 0.06), 0 1px 2px rgba(20, 18, 16, 0.05);
+  --shadow-md: 0 8px 24px rgba(20, 18, 16, 0.08), 0 2px 6px rgba(20, 18, 16, 0.05);
+  --shadow-lg: 0 20px 48px rgba(20, 18, 16, 0.12), 0 6px 14px rgba(20, 18, 16, 0.06);
+
+  /* Layout */
+  --sidebar-width: 300px;
+  --sidebar-width-collapsed: 76px;
+  --content-max: 720px;
+  --content-wide: 940px;
+  --header-height: 60px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 140ms;
+  --dur-base: 240ms;
+  --dur-slow: 420ms;
+
+  --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus);
+
+  /* -------------------------------------------------------------------------
+     2 · SEMANTIC (light theme defaults)
+     ---------------------------------------------------------------------- */
+  --color-bg: var(--gray-25);
+  --color-bg-sunken: var(--gray-50);
+  --color-surface: var(--gray-0);
+  --color-surface-2: var(--gray-50);
+  --color-surface-hover: var(--gray-50);
+  --color-surface-active: var(--gray-100);
+
+  --color-text: var(--gray-950);
+  --color-text-secondary: var(--gray-700);
+  --color-text-muted: var(--gray-500);
+  --color-text-faint: var(--gray-400);
+  --color-text-inverse: var(--gray-25);
+
+  --color-border: var(--gray-200);
+  --color-border-subtle: var(--gray-150);
+  --color-border-strong: var(--gray-300);
+
+  --color-focus: var(--blue-500);
+
+  /* Accent semantics (editorial colour code) */
+  --color-essential: var(--red-500);
+  --color-essential-bg: var(--red-tint);
+  --color-context: var(--blue-500);
+  --color-context-bg: var(--blue-tint);
+  --color-action: var(--green-500);
+  --color-action-bg: var(--green-tint);
+  --color-warn: var(--amber-500);
+  --color-warn-bg: var(--amber-tint);
+
+  /* Interactive accent = ink (monochrome-first) */
+  --color-accent: var(--gray-950);
+  --color-accent-contrast: var(--gray-0);
+
+  /* Code surfaces */
+  --color-code-bg: var(--gray-950);
+  --color-code-text: #ededea;
+  --color-code-inline-bg: var(--gray-100);
+  --color-code-inline-text: var(--gray-900);
+
+  color-scheme: light;
+}
+
+/* ---------------------------------------------------------------------------
+   3 · DARK THEME
+   ------------------------------------------------------------------------ */
+:root[data-theme="dark"] {
+  --color-bg: var(--gray-975);
+  --color-bg-sunken: #090907;
+  --color-surface: var(--gray-900);
+  --color-surface-2: var(--gray-850);
+  --color-surface-hover: var(--gray-850);
+  --color-surface-active: var(--gray-800);
+
+  --color-text: #f4f4f0;
+  --color-text-secondary: #c0c0b8;
+  --color-text-muted: #8f8f86;
+  --color-text-faint: #6a6a62;
+  --color-text-inverse: var(--gray-950);
+
+  --color-border: #33332e;
+  --color-border-subtle: #262622;
+  --color-border-strong: #45453f;
+
+  --color-focus: var(--blue-400);
+
+  --color-essential: var(--red-400);
+  --color-essential-bg: var(--red-tint-dark);
+  --color-context: var(--blue-400);
+  --color-context-bg: var(--blue-tint-dark);
+  --color-action: var(--green-400);
+  --color-action-bg: var(--green-tint-dark);
+  --color-warn: #d9a441;
+  --color-warn-bg: var(--amber-tint-dark);
+
+  --color-accent: #f4f4f0;
+  --color-accent-contrast: var(--gray-950);
+
+  --color-code-bg: #050504;
+  --color-code-text: #e6e6e2;
+  --color-code-inline-bg: var(--gray-850);
+  --color-code-inline-text: #e6e6e2;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.6), 0 6px 14px rgba(0, 0, 0, 0.45);
+
+  color-scheme: dark;
+}
+
+/* Respect OS preference when the user hasn't chosen explicitly */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    --color-bg: var(--gray-975);
+    --color-bg-sunken: #090907;
+    --color-surface: var(--gray-900);
+    --color-surface-2: var(--gray-850);
+    --color-surface-hover: var(--gray-850);
+    --color-surface-active: var(--gray-800);
+    --color-text: #f4f4f0;
+    --color-text-secondary: #c0c0b8;
+    --color-text-muted: #8f8f86;
+    --color-text-faint: #6a6a62;
+    --color-text-inverse: var(--gray-950);
+    --color-border: #33332e;
+    --color-border-subtle: #262622;
+    --color-border-strong: #45453f;
+    --color-focus: var(--blue-400);
+    --color-essential: var(--red-400);
+    --color-essential-bg: var(--red-tint-dark);
+    --color-context: var(--blue-400);
+    --color-context-bg: var(--blue-tint-dark);
+    --color-action: var(--green-400);
+    --color-action-bg: var(--green-tint-dark);
+    --color-warn: #d9a441;
+    --color-warn-bg: var(--amber-tint-dark);
+    --color-accent: #f4f4f0;
+    --color-accent-contrast: var(--gray-950);
+    --color-code-bg: #050504;
+    --color-code-text: #e6e6e2;
+    --color-code-inline-bg: var(--gray-850);
+    --color-code-inline-text: #e6e6e2;
+    color-scheme: dark;
+  }
+}
