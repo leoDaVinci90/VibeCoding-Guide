@@ -385,6 +385,35 @@
   font-weight: var(--weight-semibold);
 }
 
+/* Feature variant — a prominent, full-width, neutral highlight block.
+   Overrides the tone-coloured styling above (declared later = wins). */
+.callout[data-variant="feature"] {
+  max-width: none;
+  gap: 0;
+  padding: clamp(var(--space-5), 3vw, var(--space-6));
+  background: var(--color-surface-2);
+  border-color: var(--color-border);
+}
+.callout[data-variant="feature"]::before {
+  display: none;
+}
+.callout[data-variant="feature"] .calloutTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-secondary);
+}
+.calloutTitleIcon {
+  display: inline-grid;
+  place-items: center;
+  color: var(--color-text);
+}
+.callout[data-variant="feature"] .calloutText {
+  font-size: 1.125rem; /* 18px */
+  line-height: var(--leading-relaxed);
+  color: var(--color-text);
+}
+
 /* --- Term card -------------------------------------------------------------- */
 .term {
   container-type: inline-size;

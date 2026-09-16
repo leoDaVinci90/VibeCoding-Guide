@@ -95,3 +95,15 @@ export const IconCross = React.forwardRef<SVGSVGElement, IconProps>(
     );
   },
 );
+
+export const IconIdea = React.forwardRef<SVGSVGElement, IconProps>(
+  function IconIdea(props, ref) {
+    return (
+      <UiIcon ref={ref} {...props}>
+        <path d="M9.5 18h5" />
+        <path d="M10.5 21h3" />
+        <path d="M12 3a6.5 6.5 0 0 0-3.8 11.77c.5.37.8.95.8 1.57V16h6v.34c0 .62.3 1.2.8 1.57A6.5 6.5 0 0 0 12 3Z" />
+      </UiIcon>
+    );
+  },
+);

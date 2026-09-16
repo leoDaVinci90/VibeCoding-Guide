@@ -1,6 +1,6 @@
 import { Section, SectionHeader, Subhead, Prose, Callout } from "@/components/content";
 import { chapterIcons } from "@/components/icons/StreamlineIcons";
-import { IconArrowRight } from "@/components/icons/ui";
+import { IconArrowRight, IconIdea } from "@/components/icons/ui";
 import s from "./sections.module.css";
 
 const toc = [
@@ -110,7 +110,11 @@ export function Contents() {
       </div>
 
       <div style={{ marginTop: "var(--space-6)" }}>
-        <Callout tone="context" title="The whole point">
+        <Callout
+          variant="feature"
+          title="The whole point"
+          icon={<IconIdea size={20} strokeWidth={1.6} />}
+        >
           <strong>Vibe coding</strong> is building software by describing what
           you want in natural language instead of writing every line yourself.
           You act more like a creative director than a typist: the AI generates
