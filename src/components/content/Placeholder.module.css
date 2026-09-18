@@ -1,0 +1,40 @@
+.figure {
+  margin: 0;
+  max-width: var(--measure-wide);
+}
+
+.canvas {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  border: var(--border-hair) dashed var(--color-border-strong);
+  background: var(--color-surface-2);
+  color: var(--color-text-faint);
+}
+
+.art {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  color: var(--color-text-muted);
+}
+
+.tag {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.caption {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+  color: var(--color-text-muted);
+}

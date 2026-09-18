@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import { ThemeProvider, themeInitScript } from "@/components/layout/ThemeProvider";
+import { AppShell } from "@/components/layout/AppShell";
 import "./tokens.css";
 import "./globals.css";
 
@@ -17,18 +18,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Vibe Coding Field Guide",
+  title: {
+    default: "The Vibe Coding Field Guide",
+    template: "%s · The Vibe Coding Field Guide",
+  },
   description:
-    "Everything to understand before you open a vibe-coding environment — the terminology, the prompt craft, the tools and the mental models, in one place.",
-  authors: [{ name: "FinCloud AI Sessions" }],
+    "A friendly guide for product designers, visual designers, content designers, and user researchers who are new to vibe coding — the language, the workflow, and what to ask next.",
   keywords: [
     "vibe coding",
     "AI",
     "LLM",
-    "prompt engineering",
-    "git",
-    "terminal",
+    "context engineering",
+    "prompting",
     "design",
+    "user research",
   ],
 };
 
@@ -56,10 +59,12 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body>
-        <a href="#content" className="sr-only">
+        <a href="#content" className="sr-only sr-only-focusable">
           Skip to content
         </a>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <AppShell>{children}</AppShell>
+        </ThemeProvider>
       </body>
     </html>
   );

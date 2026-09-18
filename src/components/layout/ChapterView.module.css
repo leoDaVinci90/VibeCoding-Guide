@@ -1,0 +1,3 @@
+.chapter {
+  padding-bottom: clamp(var(--space-9), 6vw, var(--space-11));
+}

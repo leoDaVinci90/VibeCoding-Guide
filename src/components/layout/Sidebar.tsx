@@ -1,57 +1,58 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { chapters, type NavChapter } from "@/data/guide";
 import { IconChevron } from "@/components/icons/ui";
 import styles from "./Sidebar.module.css";
 
 type SidebarProps = {
-  activeId: string | null;
+  /** Slug of the chapter whose page is currently open. */
+  activeSlug: string | null;
+  /** Id of the subchapter currently in view on that page. */
+  activeLeafId: string | null;
   collapsed: boolean;
   onNavigate: () => void;
 };
 
-/** Which chapter owns a given active id (chapter id or one of its children). */
-function chapterForActive(activeId: string | null): string | null {
-  if (!activeId) return null;
-  for (const c of chapters) {
-    if (c.id === activeId) return c.id;
-    if (c.children.some((child) => child.id === activeId)) return c.id;
-  }
-  return null;
-}
-
-export function Sidebar({ activeId, collapsed, onNavigate }: SidebarProps) {
-  const activeChapter = useMemo(() => chapterForActive(activeId), [activeId]);
+export function Sidebar({
+  activeSlug,
+  activeLeafId,
+  collapsed,
+  onNavigate,
+}: SidebarProps) {
+  // Start with the active chapter open; every chapter open by default otherwise
+  // so the tree reads as a full table of contents.
   const [expanded, setExpanded] = useState<Record<string, boolean>>(() =>
-    Object.fromEntries(chapters.map((c) => [c.id, true])),
+    Object.fromEntries(chapters.map((c) => [c.slug, true])),
   );
 
-  // Keep the chapter that contains the active section open as you scroll.
+  // Keep the current chapter expanded when the route changes.
   useEffect(() => {
-    if (activeChapter) {
+    if (activeSlug) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setExpanded((prev) =>
-        prev[activeChapter] ? prev : { ...prev, [activeChapter]: true },
+        prev[activeSlug] ? prev : { ...prev, [activeSlug]: true },
       );
     }
-  }, [activeChapter]);
+  }, [activeSlug]);
 
-  const toggle = (id: string) =>
-    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
+  const toggle = (slug: string) =>
+    setExpanded((prev) => ({ ...prev, [slug]: !prev[slug] }));
 
   return (
     <nav className={styles.nav} aria-label="Guide contents">
       <ul className={styles.tree} role="tree">
         {chapters.map((chapter) => (
           <ChapterNode
-            key={chapter.id}
+            key={chapter.slug}
             chapter={chapter}
             collapsed={collapsed}
-            isOpen={expanded[chapter.id] ?? false}
-            isActiveChapter={activeChapter === chapter.id}
-            activeId={activeId}
-            onToggle={() => toggle(chapter.id)}
+            isOpen={expanded[chapter.slug] ?? false}
+            isActiveChapter={activeSlug === chapter.slug}
+            activeLeafId={activeLeafId}
+            onToggle={() => toggle(chapter.slug)}
             onNavigate={onNavigate}
           />
         ))}
@@ -65,7 +66,7 @@ type ChapterNodeProps = {
   collapsed: boolean;
   isOpen: boolean;
   isActiveChapter: boolean;
-  activeId: string | null;
+  activeLeafId: string | null;
   onToggle: () => void;
   onNavigate: () => void;
 };
@@ -75,26 +76,34 @@ function ChapterNode({
   collapsed,
   isOpen,
   isActiveChapter,
-  activeId,
+  activeLeafId,
   onToggle,
   onNavigate,
 }: ChapterNodeProps) {
   const Icon = chapter.icon;
-  const chapterSelected = activeId === chapter.id;
+  const showChildren = useMemo(
+    () => !collapsed && chapter.children.length > 0,
+    [collapsed, chapter.children.length],
+  );
 
   return (
-    <li className={styles.chapter} role="treeitem" aria-expanded={isOpen}>
+    <li
+      className={styles.chapter}
+      role="treeitem"
+      aria-expanded={isOpen}
+      aria-selected={isActiveChapter}
+    >
       <div
         className={`${styles.chapterRow} ${
           isActiveChapter ? styles.chapterRowActive : ""
         }`}
         data-collapsed={collapsed || undefined}
       >
-        <a
-          href={`#${chapter.id}`}
+        <Link
+          href={`/${chapter.slug}`}
           className={styles.chapterLink}
           onClick={onNavigate}
-          aria-current={chapterSelected ? "true" : undefined}
+          aria-current={isActiveChapter ? "page" : undefined}
           title={collapsed ? chapter.label : undefined}
         >
           <span className={styles.chapterIcon}>
@@ -115,9 +124,9 @@ function ChapterNode({
               transition={{ type: "spring", stiffness: 520, damping: 40 }}
             />
           )}
-        </a>
+        </Link>
 
-        {!collapsed && chapter.children.length > 0 && (
+        {showChildren && (
           <button
             type="button"
             className={styles.disclosure}
@@ -136,9 +145,9 @@ function ChapterNode({
         )}
       </div>
 
-      {!collapsed && (
+      {showChildren && (
         <AnimatePresence initial={false}>
-          {isOpen && chapter.children.length > 0 && (
+          {isOpen && (
             <motion.ul
               className={styles.children}
               role="group"
@@ -149,11 +158,12 @@ function ChapterNode({
             >
               <div className={styles.childrenInner}>
                 {chapter.children.map((child) => {
-                  const selected = activeId === child.id;
+                  const selected =
+                    isActiveChapter && activeLeafId === child.id;
                   return (
                     <li key={child.id} role="treeitem" aria-selected={selected}>
-                      <a
-                        href={`#${child.id}`}
+                      <Link
+                        href={`/${chapter.slug}#${child.id}`}
                         className={`${styles.childLink} ${
                           selected ? styles.childLinkActive : ""
                         }`}
@@ -173,7 +183,7 @@ function ChapterNode({
                             }}
                           />
                         )}
-                      </a>
+                      </Link>
                     </li>
                   );
                 })}

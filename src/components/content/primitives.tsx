@@ -58,6 +58,73 @@ export function SectionHeader({
   );
 }
 
+/* --- Chapter header (h1, one per chapter page) ------------------------------ */
+export function ChapterHeader({
+  index,
+  eyebrow,
+  icon: Icon,
+  title,
+  lede,
+}: {
+  index?: string;
+  eyebrow: string;
+  icon?: ComponentType<IconProps>;
+  title: string;
+  lede?: ReactNode;
+}) {
+  return (
+    <header className={s.chapterHead}>
+      <span className={s.eyebrow}>
+        {Icon && (
+          <span className={s.eyebrowIcon}>
+            <Icon size={15} strokeWidth={1.2} />
+          </span>
+        )}
+        <span className={s.eyebrowText}>
+          {index && <span className={s.eyebrowIndex}>{index} · </span>}
+          {eyebrow}
+        </span>
+      </span>
+      <h1 className={s.chapterTitle}>{title}</h1>
+      {lede && <p className={s.lede}>{lede}</p>}
+    </header>
+  );
+}
+
+/* --- Subchapter (h2, anchor target + deep-link wrapper) --------------------- */
+export function Sub({
+  id,
+  kicker,
+  kickerTone,
+  title,
+  note,
+  children,
+}: {
+  id: string;
+  kicker?: string;
+  kickerTone?: "essential" | "context" | "action" | "warn";
+  title: ReactNode;
+  note?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <section id={id} className={s.sub} aria-labelledby={`${id}-h`}>
+      <div className={s.subHead}>
+        {kicker && (
+          <span className={s.kicker} data-tone={kickerTone}>
+            {kicker}
+          </span>
+        )}
+        <h2 id={`${id}-h`} className={s.subTitle}>
+          {title}
+        </h2>
+        {note && <p className={s.subheadNote}>{note}</p>}
+      </div>
+      <Stack gap={5}>{children}</Stack>
+    </section>
+  );
+}
+
 /* --- Subhead (anchor target for subchapters) -------------------------------- */
 export function Subhead({
   id,

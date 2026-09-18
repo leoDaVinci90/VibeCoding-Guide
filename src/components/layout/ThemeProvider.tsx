@@ -49,6 +49,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     } catch {
       /* storage unavailable — fall back to system */
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setThemeState(stored);
     setResolvedTheme(stored === "system" ? systemTheme() : stored);
   }, []);
@@ -56,6 +57,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   // Apply the resolved theme to <html> and keep it in sync.
   useEffect(() => {
     const resolved = theme === "system" ? systemTheme() : theme;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setResolvedTheme(resolved);
     document.documentElement.setAttribute("data-theme", resolved);
 

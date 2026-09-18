@@ -74,6 +74,49 @@ const paths: Record<string, string[]> = {
     "M0.5 3.5h13",
     "M4.5 3.5v10",
     "M13.5 8.5h-9"
+  ],
+  /* --- Field-guide chapter glyphs (simple geometric placeholders) --- */
+  "chat": [
+    "M1.5 2.5h11c0.55 0 1 0.45 1 1v6c0 0.55 -0.45 1 -1 1H6l-3 2.5v-2.5H1.5c-0.55 0 -1 -0.45 -1 -1v-6c0 -0.55 0.45 -1 1 -1Z",
+    "M4 5.5h6",
+    "M4 8h4"
+  ],
+  "web": [
+    "M13.5 10.5v-8c0 -0.28 -0.22 -0.5 -0.5 -0.5H1c-0.28 0 -0.5 0.22 -0.5 0.5v8c0 0.28 0.22 0.5 0.5 0.5h12c0.28 0 0.5 -0.22 0.5 -0.5Z",
+    "M0.5 4.5h13",
+    "M2.4 3.1h0.01",
+    "M4 3.1h0.01",
+    "m5.5 6 -1.5 1.5 1.5 1.5",
+    "m8.5 6 1.5 1.5 -1.5 1.5"
+  ],
+  "context": [
+    "M7 0.8 0.8 3.9 7 7l6.2 -3.1L7 0.8Z",
+    "m0.8 7 6.2 3.1L13.2 7",
+    "m0.8 10.1 6.2 3.1 6.2 -3.1"
+  ],
+  "briefing": [
+    "M9 2h1.5c0.55 0 1 0.45 1 1v9.5c0 0.55 -0.45 1 -1 1h-7c-0.55 0 -1 -0.45 -1 -1V3c0 -0.55 0.45 -1 1 -1H5",
+    "M5 1.2h4c0.28 0 0.5 0.22 0.5 0.5v1.3c0 0.28 -0.22 0.5 -0.5 0.5H5c-0.28 0 -0.5 -0.22 -0.5 -0.5V1.7c0 -0.28 0.22 -0.5 0.5 -0.5Z",
+    "M4.8 7h4.4",
+    "M4.8 9.5h3"
+  ],
+  "workflow": [
+    "M7 13c3.31 0 6 -2.69 6 -6s-2.69 -6 -6 -6 -6 2.69 -6 6 2.69 6 6 6Z",
+    "m9.4 4.6 -1.1 3.7 -3.7 1.1 1.1 -3.7 3.7 -1.1Z"
+  ],
+  "craft": [
+    "M2 2h3.4v3.4H2Z",
+    "M8.6 2H12v3.4H8.6Z",
+    "M2 8.6h3.4V12H2Z",
+    "M8.6 8.6H12V12H8.6Z"
+  ],
+  "quality": [
+    "M7 0.8 1.8 2.9v3.4c0 3.02 2.2 5.83 5.2 6.9 3 -1.07 5.2 -3.88 5.2 -6.9V2.9L7 0.8Z",
+    "m4.7 6.9 1.6 1.6 3 -3.2"
+  ],
+  "project": [
+    "M7 12.5a5.5 5.5 0 1 0 0 -11 5.5 5.5 0 0 0 0 11Z",
+    "M7 9.2a2.2 2.2 0 1 0 0 -4.4 2.2 2.2 0 0 0 0 4.4Z"
   ]
 };
 
@@ -119,11 +162,20 @@ export const IconClosing = createIcon("closing", "IconClosing");
 export const IconSun = createIcon("sun", "IconSun");
 export const IconMoon = createIcon("moon", "IconMoon");
 export const IconSidebar = createIcon("sidebar", "IconSidebar");
+export const IconChat = createIcon("chat", "IconChat");
+export const IconWeb = createIcon("web", "IconWeb");
+export const IconContext = createIcon("context", "IconContext");
+export const IconBriefing = createIcon("briefing", "IconBriefing");
+export const IconWorkflow = createIcon("workflow", "IconWorkflow");
+export const IconCraft = createIcon("craft", "IconCraft");
+export const IconQuality = createIcon("quality", "IconQuality");
+export const IconProject = createIcon("project", "IconProject");
 
+/** Named by the role the icon plays in the guide's 12-chapter structure. */
 export const chapterIcons = {
+  // raw glyphs (still referenced by name in a few places)
   ai: IconAi,
   prompt: IconPrompt,
-  git: IconGit,
   terminal: IconTerminal,
   deepdive: IconDeepDive,
   overview: IconOverview,
@@ -132,4 +184,17 @@ export const chapterIcons = {
   sun: IconSun,
   moon: IconMoon,
   sidebar: IconSidebar,
+  // chapter roles
+  welcome: IconOverview,
+  vibe: IconAi,
+  language: IconChat,
+  web: IconWeb,
+  context: IconContext,
+  briefing: IconBriefing,
+  workflow: IconWorkflow,
+  craft: IconCraft,
+  quality: IconQuality,
+  git: IconGit,
+  project: IconProject,
+  reference: IconGlossary,
 } as const;

@@ -126,6 +126,70 @@
   text-decoration-color: var(--color-essential);
 }
 
+.prose ul,
+.prose ol {
+  padding-left: 1.35em;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.prose ul {
+  list-style: disc;
+}
+
+.prose ol {
+  list-style: decimal;
+}
+
+.prose li {
+  padding-left: 0.2em;
+}
+
+.prose li::marker {
+  color: var(--color-text-muted);
+}
+
+/* --- Chapter header (h1) ---------------------------------------------------- */
+.chapterHead {
+  padding-top: clamp(var(--space-7), 5vw, var(--space-9));
+  margin-bottom: clamp(var(--space-7), 5vw, var(--space-9));
+}
+
+.chapterTitle {
+  font-size: clamp(var(--text-3xl), 6vw, var(--text-4xl));
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tighter);
+  font-weight: var(--weight-bold);
+  text-wrap: balance;
+}
+
+/* --- Subchapter block (h2, anchored) ---------------------------------------- */
+.sub {
+  scroll-margin-top: calc(var(--header-height) + var(--space-6));
+  padding-top: clamp(var(--space-8), 5vw, var(--space-9));
+  margin-top: clamp(var(--space-8), 5vw, var(--space-9));
+  border-top: var(--border-hair) solid var(--color-border-subtle);
+}
+
+.sub:first-of-type {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.subHead {
+  margin-bottom: var(--space-6);
+}
+
+.subTitle {
+  font-size: clamp(var(--text-xl), 3.4vw, var(--text-2xl));
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  font-weight: var(--weight-semibold);
+  text-wrap: balance;
+}
+
 /* --- Subheading within a section -------------------------------------------- */
 .subhead {
   scroll-margin-top: calc(var(--header-height) + var(--space-6));
@@ -384,6 +448,33 @@
 .calloutText strong {
   font-weight: var(--weight-semibold);
 }
+.calloutText > * + * {
+  margin-top: var(--space-3);
+}
+.calloutText ul,
+.calloutText ol {
+  padding-left: 1.35em;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.calloutText ul {
+  list-style: disc;
+}
+.calloutText ol {
+  list-style: decimal;
+}
+.calloutText li::marker {
+  color: var(--color-text-muted);
+}
+.calloutText code {
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+  background: var(--color-code-inline-bg);
+  color: var(--color-code-inline-text);
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+}
 
 /* Feature variant — a prominent, full-width, neutral highlight block.
    Overrides the tone-coloured styling above (declared later = wins). */
@@ -540,11 +631,55 @@
 }
 
 .codeLabel {
+  margin-inline-end: auto;
   font-family: var(--font-mono);
   font-size: var(--text-2xs);
   letter-spacing: var(--tracking-wide);
   color: rgba(255, 255, 255, 0.55);
   text-transform: uppercase;
+}
+
+/* Copy-to-clipboard control */
+.codeCopy {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: var(--radius-xs);
+  border: var(--border-hair) solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.codeCopy:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.codeCopy[data-copied] {
+  color: #8fe0ad;
+  border-color: rgba(143, 224, 173, 0.4);
+}
+
+.codeCopyInner {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Code variant — no terminal chrome, softer header for JSON / prompt / markdown */
+.code[data-variant="code"] .codeHead {
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .codePre {
@@ -621,7 +756,7 @@
 .table tbody th {
   font-weight: var(--weight-medium);
   color: var(--color-text);
-  white-space: nowrap;
+  min-width: 8rem;
 }
 
 .table td {
@@ -643,6 +778,9 @@
 @media (min-width: 640px) {
   .study {
     grid-template-columns: 1fr 1fr;
+  }
+  .study[data-single] {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -781,6 +919,65 @@
 }
 .stepText + * {
   margin-top: var(--space-3);
+}
+
+/* --- Glossary --------------------------------------------------------------- */
+.glossary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.glossaryGroup {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.glossaryLetter {
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-4));
+  font-family: var(--font-mono);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-essential);
+}
+
+.glossaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.glossaryItem {
+  padding-bottom: var(--space-4);
+  border-bottom: var(--border-hair) solid var(--color-border-subtle);
+}
+
+.glossaryTerm {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.glossaryDef {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 560px) {
+  .glossaryGroup {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+  .glossaryLetter {
+    position: static;
+  }
 }
 
 /* --- Stack helper ----------------------------------------------------------- */

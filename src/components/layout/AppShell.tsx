@@ -1,10 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import { Sidebar } from "./Sidebar";
 import { ThemeToggle } from "./ThemeToggle";
-import { allSectionIds, chapters } from "@/data/guide";
+import { chapterBySlug, sectionIdsFor } from "@/data/guide";
 import { useScrollSpy } from "@/lib/useScrollSpy";
 import { IconClose, IconMenu } from "@/components/icons/ui";
 import { IconSidebar } from "@/components/icons/StreamlineIcons";
@@ -15,7 +17,23 @@ const COLLAPSE_KEY = "vcfg-sidebar-collapsed";
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const activeId = useScrollSpy(allSectionIds);
+  const pathname = usePathname();
+
+  // Current chapter slug from the route ("/" → home / cover).
+  const activeSlug = useMemo(() => {
+    const seg = (pathname ?? "/").split("/").filter(Boolean)[0] ?? null;
+    return seg && chapterBySlug(seg) ? seg : null;
+  }, [pathname]);
+
+  const activeChapter = activeSlug ? chapterBySlug(activeSlug) : undefined;
+
+  // Subchapter ids for the current chapter only — memoised so the scroll-spy
+  // effect doesn't re-subscribe on every render.
+  const sectionIds = useMemo(
+    () => (activeSlug ? sectionIdsFor(activeSlug) : []),
+    [activeSlug],
+  );
+  const activeLeafId = useScrollSpy(sectionIds);
 
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, {
@@ -27,6 +45,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   // Restore persisted rail state.
   useEffect(() => {
     try {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCollapsed(localStorage.getItem(COLLAPSE_KEY) === "1");
     } catch {
       /* ignore */
@@ -47,6 +66,29 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   const closeMobile = useCallback(() => setMobileOpen(false), []);
 
+  // Close the mobile drawer whenever the route changes.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMobileOpen(false);
+  }, [pathname]);
+
+  // Deep links: scroll to the hash target after the chapter page has rendered.
+  // (A hard load with a #subchapter hash otherwise lands at the top.)
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.location.hash) return;
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    let raf = 0;
+    const t = setTimeout(() => {
+      raf = requestAnimationFrame(() => {
+        document.getElementById(id)?.scrollIntoView({ block: "start" });
+      });
+    }, 80);
+    return () => {
+      clearTimeout(t);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [pathname]);
+
   // Lock scroll + close on Escape while the mobile drawer is open.
   useEffect(() => {
     if (!mobileOpen) return;
@@ -62,24 +104,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     };
   }, [mobileOpen]);
 
-  const activeChapterLabel = useMemo(() => {
-    if (!activeId) return null;
-    for (const c of chapters) {
-      if (c.id === activeId || c.children.some((ch) => ch.id === activeId)) {
-        return c;
-      }
-    }
-    return null;
-  }, [activeId]);
-
   const activeLeafLabel = useMemo(() => {
-    if (!activeId) return null;
-    for (const c of chapters) {
-      const leaf = c.children.find((ch) => ch.id === activeId);
-      if (leaf) return leaf.label;
-    }
-    return null;
-  }, [activeId]);
+    if (!activeChapter || !activeLeafId) return null;
+    return (
+      activeChapter.children.find((c) => c.id === activeLeafId)?.label ?? null
+    );
+  }, [activeChapter, activeLeafId]);
 
   return (
     <div
@@ -110,119 +140,120 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </AnimatePresence>
 
       <div className={styles.page}>
-      {/* Sidebar */}
-      <aside className={styles.sidebar} aria-label="Primary">
-        <div className={styles.brand}>
-          <a
-            href="#top"
-            className={styles.brandMark}
-            onClick={closeMobile}
-            title="Vibe Coding Field Guide"
-          >
-            <span className={styles.brandGlyph} aria-hidden>
-              VC
-            </span>
-            {!collapsed && (
-              <span className={styles.brandText}>
-                <span className={styles.brandTitle}>Field Guide</span>
-                <span className={styles.brandSub}>Vibe Coding · No. 01</span>
+        {/* Sidebar */}
+        <aside className={styles.sidebar} aria-label="Primary">
+          <div className={styles.brand}>
+            <Link
+              href="/"
+              className={styles.brandMark}
+              onClick={closeMobile}
+              title="Vibe Coding Field Guide"
+            >
+              <span className={styles.brandGlyph} aria-hidden>
+                VC
               </span>
-            )}
-          </a>
+              {!collapsed && (
+                <span className={styles.brandText}>
+                  <span className={styles.brandTitle}>Field Guide</span>
+                  <span className={styles.brandSub}>Vibe Coding · No. 01</span>
+                </span>
+              )}
+            </Link>
 
-          <button
-            type="button"
-            className={styles.railToggle}
-            onClick={toggleCollapsed}
-            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-            title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-            data-desktop
-          >
-            <IconSidebar size={18} strokeWidth={1.2} />
-          </button>
-
-          <button
-            type="button"
-            className={styles.mobileClose}
-            onClick={closeMobile}
-            aria-label="Close menu"
-            data-mobile
-          >
-            <IconClose size={20} />
-          </button>
-        </div>
-
-        <div className={styles.sidebarScroll}>
-          <Sidebar
-            activeId={activeId}
-            collapsed={collapsed}
-            onNavigate={closeMobile}
-          />
-        </div>
-
-        {!collapsed && (
-          <div className={styles.sidebarFoot}>
-            <p className={styles.footNote}>
-              Prepared for the design team — pre-course study, ≈ 45 min.
-            </p>
-          </div>
-        )}
-      </aside>
-
-      {/* Main column */}
-      <div className={styles.main}>
-        <header className={styles.topbar}>
-          <div className={styles.topbarLeft}>
             <button
               type="button"
-              className={styles.menuButton}
-              onClick={() => setMobileOpen(true)}
-              aria-label="Open menu"
+              className={styles.railToggle}
+              onClick={toggleCollapsed}
+              aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+              title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+              data-desktop
             >
-              <IconMenu size={20} />
+              <IconSidebar size={18} strokeWidth={1.2} />
             </button>
 
-            <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-              <a href="#top" className={styles.crumbRoot} onClick={closeMobile}>
-                Guide
-              </a>
-              {activeChapterLabel && (
-                <>
-                  <span className={styles.crumbSep} aria-hidden>
-                    /
-                  </span>
-                  <a
-                    href={`#${activeChapterLabel.id}`}
-                    className={styles.crumbChapter}
-                  >
-                    {activeChapterLabel.index
-                      ? `${activeChapterLabel.index} · ${activeChapterLabel.label}`
-                      : activeChapterLabel.label}
-                  </a>
-                </>
-              )}
-              {activeLeafLabel && (
-                <>
-                  <span className={styles.crumbSep} aria-hidden>
-                    /
-                  </span>
-                  <span className={styles.crumbLeaf}>{activeLeafLabel}</span>
-                </>
-              )}
-            </nav>
+            <button
+              type="button"
+              className={styles.mobileClose}
+              onClick={closeMobile}
+              aria-label="Close menu"
+              data-mobile
+            >
+              <IconClose size={20} />
+            </button>
           </div>
 
-          <div className={styles.topbarRight}>
-            <ThemeToggle />
+          <div className={styles.sidebarScroll}>
+            <Sidebar
+              activeSlug={activeSlug}
+              activeLeafId={activeLeafId}
+              collapsed={collapsed}
+              onNavigate={closeMobile}
+            />
           </div>
-        </header>
 
-        <div className={styles.layout}>
-          <main id="content" className={styles.article}>
-            {children}
-          </main>
+          {!collapsed && (
+            <div className={styles.sidebarFoot}>
+              <p className={styles.footNote}>
+                Pre-course study for the design team — about 60–75 minutes.
+              </p>
+            </div>
+          )}
+        </aside>
+
+        {/* Main column */}
+        <div className={styles.main}>
+          <header className={styles.topbar}>
+            <div className={styles.topbarLeft}>
+              <button
+                type="button"
+                className={styles.menuButton}
+                onClick={() => setMobileOpen(true)}
+                aria-label="Open menu"
+              >
+                <IconMenu size={20} />
+              </button>
+
+              <nav className={styles.breadcrumb} aria-label="Breadcrumb">
+                <Link href="/" className={styles.crumbRoot} onClick={closeMobile}>
+                  Guide
+                </Link>
+                {activeChapter && (
+                  <>
+                    <span className={styles.crumbSep} aria-hidden>
+                      /
+                    </span>
+                    <Link
+                      href={`/${activeChapter.slug}`}
+                      className={styles.crumbChapter}
+                    >
+                      {activeChapter.index
+                        ? `${activeChapter.index} · ${activeChapter.label}`
+                        : activeChapter.label}
+                    </Link>
+                  </>
+                )}
+                {activeLeafLabel && (
+                  <>
+                    <span className={styles.crumbSep} aria-hidden>
+                      /
+                    </span>
+                    <span className={styles.crumbLeaf}>{activeLeafLabel}</span>
+                  </>
+                )}
+              </nav>
+            </div>
+
+            <div className={styles.topbarRight}>
+              <ThemeToggle />
+            </div>
+          </header>
+
+          <div className={styles.layout}>
+            <main id="content" className={styles.article}>
+              {children}
+            </main>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   );
