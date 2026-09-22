@@ -119,14 +119,3 @@ export const IconCopy = React.forwardRef<SVGSVGElement, IconProps>(
   },
 );
 
-export const IconHome = React.forwardRef<SVGSVGElement, IconProps>(
-  function IconHome(props, ref) {
-    return (
-      <UiIcon ref={ref} {...props}>
-        <path d="M3.5 11 12 4l8.5 7" />
-        <path d="M5.5 9.5V19a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V9.5" />
-        <path d="M9.75 20v-5.5h4.5V20" />
-      </UiIcon>
-    );
-  },
-);

@@ -117,6 +117,11 @@ const paths: Record<string, string[]> = {
   "project": [
     "M7 12.5a5.5 5.5 0 1 0 0 -11 5.5 5.5 0 0 0 0 11Z",
     "M7 9.2a2.2 2.2 0 1 0 0 -4.4 2.2 2.2 0 0 0 0 4.4Z"
+  ],
+  "home": [
+    "M1.6 6 7 1.7 12.4 6",
+    "M2.9 5.4v7h8.2v-7",
+    "M5.7 12.4V9h2.6v3.4"
   ]
 };
 
@@ -170,6 +175,7 @@ export const IconWorkflow = createIcon("workflow", "IconWorkflow");
 export const IconCraft = createIcon("craft", "IconCraft");
 export const IconQuality = createIcon("quality", "IconQuality");
 export const IconProject = createIcon("project", "IconProject");
+export const IconHomeGlyph = createIcon("home", "IconHomeGlyph");
 
 /** Named by the role the icon plays in the guide's 12-chapter structure. */
 export const chapterIcons = {
@@ -197,4 +203,5 @@ export const chapterIcons = {
   git: IconGit,
   project: IconProject,
   reference: IconGlossary,
+  home: IconHomeGlyph,
 } as const;

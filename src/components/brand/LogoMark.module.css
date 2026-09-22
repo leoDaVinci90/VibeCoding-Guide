@@ -2,15 +2,25 @@
   flex: 0 0 auto;
   display: grid;
   place-items: center;
-  padding: 5px;
   border-radius: var(--radius-sm);
   background: var(--color-logo-bg);
   box-shadow: var(--shadow-xs);
 }
 
 .img {
-  width: 100%;
-  height: 100%;
+  width: 60%;
+  height: 60%;
   object-fit: contain;
   display: block;
+}
+
+/* Subtle border so the dark container reads against a dark sidebar. */
+:global(:root[data-theme="dark"]) .mark {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme="light"]):not([data-theme="dark"])) .mark {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
 }

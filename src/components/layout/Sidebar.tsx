@@ -4,7 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { chapters, type NavChapter } from "@/data/guide";
-import { IconChevron, IconHome } from "@/components/icons/ui";
+import { IconChevron } from "@/components/icons/ui";
+import { chapterIcons } from "@/components/icons/StreamlineIcons";
 import styles from "./Sidebar.module.css";
 
 type SidebarProps = {
@@ -64,7 +65,7 @@ export function Sidebar({
               title={collapsed ? "Homepage" : undefined}
             >
               <span className={styles.chapterIcon}>
-                <IconHome size={19} strokeWidth={1.4} />
+                <chapterIcons.home size={19} strokeWidth={1.2} />
               </span>
               {!collapsed && (
                 <span className={styles.chapterText}>
