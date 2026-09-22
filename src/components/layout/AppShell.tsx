@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import { Sidebar } from "./Sidebar";
 import { ThemeToggle } from "./ThemeToggle";
+import { LogoMark } from "@/components/brand/LogoMark";
 import { chapterBySlug, sectionIdsFor } from "@/data/guide";
 import { useScrollSpy } from "@/lib/useScrollSpy";
 import { IconClose, IconMenu } from "@/components/icons/ui";
@@ -143,28 +144,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         {/* Sidebar */}
         <aside className={styles.sidebar} aria-label="Primary">
           <div className={styles.brand}>
-            <Link
-              href="/"
-              className={styles.brandMark}
-              onClick={closeMobile}
-              title="Vibe Coding Field Guide"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/logo.png"
-                alt=""
-                width={30}
-                height={30}
-                className={styles.brandGlyph}
-                aria-hidden
-              />
+            <div className={styles.brandMark} title="Vibe Coding Field Guide">
+              <LogoMark size={30} />
               {!collapsed && (
                 <span className={styles.brandText}>
                   <span className={styles.brandTitle}>Field Guide</span>
                   <span className={styles.brandSub}>Vibe Coding · No. 01</span>
                 </span>
               )}
-            </Link>
+            </div>
 
             <button
               type="button"

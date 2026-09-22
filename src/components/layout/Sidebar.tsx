@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { chapters, type NavChapter } from "@/data/guide";
-import { IconChevron } from "@/components/icons/ui";
+import { IconChevron, IconHome } from "@/components/icons/ui";
 import styles from "./Sidebar.module.css";
 
 type SidebarProps = {
@@ -44,6 +44,44 @@ export function Sidebar({
   return (
     <nav className={styles.nav} aria-label="Guide contents">
       <ul className={styles.tree} role="tree">
+        {/* Homepage — a first-class menu entry, part of the list. */}
+        <li
+          className={styles.chapter}
+          role="treeitem"
+          aria-selected={activeSlug === null}
+        >
+          <div
+            className={`${styles.chapterRow} ${
+              activeSlug === null ? styles.chapterRowActive : ""
+            }`}
+            data-collapsed={collapsed || undefined}
+          >
+            <Link
+              href="/"
+              className={styles.chapterLink}
+              onClick={onNavigate}
+              aria-current={activeSlug === null ? "page" : undefined}
+              title={collapsed ? "Homepage" : undefined}
+            >
+              <span className={styles.chapterIcon}>
+                <IconHome size={19} strokeWidth={1.4} />
+              </span>
+              {!collapsed && (
+                <span className={styles.chapterText}>
+                  <span className={styles.chapterLabel}>Homepage</span>
+                </span>
+              )}
+              {activeSlug === null && (
+                <motion.span
+                  layoutId="active-rail"
+                  className={styles.activeRail}
+                  transition={{ type: "spring", stiffness: 520, damping: 40 }}
+                />
+              )}
+            </Link>
+          </div>
+        </li>
+
         {chapters.map((chapter) => (
           <ChapterNode
             key={chapter.slug}

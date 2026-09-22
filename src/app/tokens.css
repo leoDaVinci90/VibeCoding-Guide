@@ -208,6 +208,9 @@
   --color-brand-strong: var(--indigo-600);
   --color-brand-bg: var(--indigo-tint);
 
+  /* App/logo container — intentionally dark in BOTH themes (not overridden) */
+  --color-logo-bg: #111114;
+
   /* Code surfaces */
   --color-code-bg: var(--gray-950);
   --color-code-text: #ededea;

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { chapters } from "@/data/guide";
 import { IconArrowRight } from "@/components/icons/ui";
+import { LogoMark } from "@/components/brand/LogoMark";
 import s from "./Cover.module.css";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -40,9 +41,9 @@ export function Cover() {
   return (
     <div className={s.cover}>
       <header className={s.hero}>
-        <motion.p className={s.overline} {...rise(0)}>
-          A friendly field guide
-        </motion.p>
+        <motion.div className={s.heroLogo} {...rise(0)}>
+          <LogoMark size={44} />
+        </motion.div>
 
         <h1 className={s.title}>
           {["The Vibe Coding", "Field Guide"].map((line, i) => (
