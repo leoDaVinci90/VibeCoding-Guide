@@ -82,7 +82,7 @@
 }
 
 .chapterRowActive .chapterIndex {
-  color: var(--color-essential);
+  color: var(--color-brand);
 }
 
 .chapterLabel {
@@ -102,7 +102,7 @@
   width: 3px;
   height: 18px;
   border-radius: var(--radius-full);
-  background: var(--color-essential);
+  background: var(--color-brand);
 }
 
 /* --- Disclosure chevron ----------------------------------------------------- */
@@ -194,7 +194,7 @@
 }
 
 .childLinkActive .childDot {
-  background: var(--color-essential);
+  background: var(--color-brand);
 }
 
 .childLabel {
@@ -209,4 +209,21 @@
   border-radius: var(--radius-sm);
   background: var(--color-surface-active);
   z-index: -1;
+}
+
+/* Mobile drawer: simplify to chapter rows only (icon + number + title). */
+@media (max-width: 900px) {
+  .children,
+  .disclosure {
+    display: none;
+  }
+
+  .chapterLink {
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+  }
+
+  .chapterLabel {
+    font-size: var(--text-md);
+  }
 }

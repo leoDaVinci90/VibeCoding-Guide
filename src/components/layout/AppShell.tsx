@@ -149,9 +149,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               onClick={closeMobile}
               title="Vibe Coding Field Guide"
             >
-              <span className={styles.brandGlyph} aria-hidden>
-                VC
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo.png"
+                alt=""
+                width={30}
+                height={30}
+                className={styles.brandGlyph}
+                aria-hidden
+              />
               {!collapsed && (
                 <span className={styles.brandText}>
                   <span className={styles.brandTitle}>Field Guide</span>

@@ -101,7 +101,7 @@ pre {
 }
 
 ::selection {
-  background: var(--color-essential);
+  background: var(--color-brand);
   color: #fff;
 }
 

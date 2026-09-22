@@ -24,9 +24,9 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 3px;
   z-index: 60;
-  background: var(--color-essential);
+  background: var(--brand-gradient);
   transform-origin: 0 50%;
 }
 
@@ -68,16 +68,10 @@
 
 .brandGlyph {
   flex: 0 0 auto;
-  display: grid;
-  place-items: center;
+  display: block;
   width: 30px;
   height: 30px;
-  border-radius: var(--radius-sm);
-  background: var(--color-accent);
-  color: var(--color-accent-contrast);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-bold);
-  letter-spacing: 0.02em;
+  object-fit: contain;
 }
 
 .shell[data-collapsed] .brand {
@@ -284,7 +278,7 @@
     left: 0;
     bottom: 0;
     height: 100dvh;
-    width: min(86vw, 320px);
+    width: 90vw;
     flex-basis: auto;
     transform: translateX(-102%);
     box-shadow: var(--shadow-lg);
@@ -299,7 +293,7 @@
     --current-sidebar: var(--sidebar-width);
   }
   .shell[data-collapsed] .sidebar {
-    width: min(86vw, 320px);
+    width: 90vw;
   }
   .shell[data-collapsed] .brand {
     padding: 0 var(--space-3) 0 var(--space-4);
