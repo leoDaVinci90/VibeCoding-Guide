@@ -156,10 +156,11 @@
 }
 
 .chapterTitle {
-  font-size: clamp(var(--text-3xl), 6vw, var(--text-4xl));
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-tighter);
-  font-weight: var(--weight-semibold);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(var(--text-2xl), 5.5vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: 0;
   text-wrap: balance;
 }
 
