@@ -2,11 +2,11 @@
   padding-bottom: clamp(var(--space-9), 6vw, var(--space-11));
 }
 
-/* --- Hero (Medium-style yellow band) ---------------------------------------- */
+/* --- Hero (Medium-style full-bleed yellow band) ----------------------------- */
 .hero {
-  margin-top: var(--space-6);
-  padding: clamp(var(--space-7), 6vw, var(--space-10));
-  border-radius: var(--radius-lg);
+  /* Break out of the article gutter so the yellow spans the full main column */
+  margin: 0 calc(-1 * var(--gutter));
+  padding: clamp(var(--space-8), 7vw, var(--space-11)) var(--gutter);
   background: var(--color-yellow);
 }
 
@@ -17,7 +17,7 @@
 .title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(var(--text-2xl), 6vw, var(--text-4xl));
+  font-size: clamp(var(--text-2xl), 7vw, 3.5rem);
   line-height: 1.04;
   letter-spacing: 0;
   color: #191919;

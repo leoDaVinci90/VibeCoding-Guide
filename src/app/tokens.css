@@ -179,17 +179,17 @@
   --color-surface-2: #fafafa;
   --color-surface-hover: #f7f7f7;
   --color-surface-active: #f2f2f2;
-  --color-surface-subtle: #f2f2f2; /* tag pills, subtle fills */
+  --color-surface-subtle: #dfdfdf; /* tag pills, subtle fills */
 
   --color-text: #242424;
-  --color-text-secondary: #6b6b6b;
-  --color-text-muted: #8c8c8c;
-  --color-text-faint: #a8a8a8;
+  --color-text-secondary: #5a5a5a;
+  --color-text-muted: #7c7c7c;
+  --color-text-faint: #a0a0a0;
   --color-text-inverse: #ffffff;
 
-  --color-border: #e6e6e6;
-  --color-border-subtle: #ededed;
-  --color-border-strong: #d4d4d4;
+  --color-border: #cfcfcf;
+  --color-border-subtle: #e2e2e2;
+  --color-border-strong: #bdbdbd;
 
   --color-focus: var(--medium-green);
 
