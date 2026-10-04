@@ -55,8 +55,8 @@
   width: 24px;
   height: 24px;
   border-radius: var(--radius-full);
-  background: var(--color-surface-2);
-  color: var(--color-text-secondary);
+  background: var(--color-yellow);
+  color: #191919;
 }
 
 .eyebrowText {

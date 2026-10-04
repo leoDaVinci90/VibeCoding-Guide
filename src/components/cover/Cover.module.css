@@ -205,8 +205,8 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-sm);
-  background: var(--color-surface-2);
-  color: var(--color-text-secondary);
+  background: var(--color-yellow);
+  color: #191919;
 }
 
 .cardBody {
