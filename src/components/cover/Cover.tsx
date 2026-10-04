@@ -41,6 +41,7 @@ export function Cover() {
   return (
     <div className={s.cover}>
       <header className={s.hero}>
+        <div className={s.heroInner}>
         <motion.div className={s.heroLogo} {...rise(0)}>
           <LogoMark size={44} />
         </motion.div>
@@ -85,6 +86,7 @@ export function Cover() {
             </div>
           ))}
         </motion.dl>
+        </div>
       </header>
 
       <section className={s.outcomes} aria-labelledby="outcomes-h">

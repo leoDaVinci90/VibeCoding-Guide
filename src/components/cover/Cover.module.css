@@ -4,10 +4,20 @@
 
 /* --- Hero (Medium-style full-bleed yellow band) ----------------------------- */
 .hero {
-  /* Break out of the article gutter so the yellow spans the full main column */
+  /* Full-bleed yellow band across the whole main column (home article is
+     uncapped via .article[data-home]) */
   margin: 0 calc(-1 * var(--gutter));
   padding: clamp(var(--space-8), 7vw, var(--space-11)) var(--gutter);
   background: var(--color-yellow);
+}
+
+/* Keep the hero content aligned with the rest of the cover */
+.heroInner,
+.outcomes,
+.contents {
+  max-width: var(--content-column);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .heroLogo {
