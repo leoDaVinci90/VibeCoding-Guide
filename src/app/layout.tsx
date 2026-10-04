@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
+import { Inter, Geist_Mono, Geist_Pixel } from "next/font/google";
 import { ThemeProvider, themeInitScript } from "@/components/layout/ThemeProvider";
 import { AppShell } from "@/components/layout/AppShell";
 import "./tokens.css";
@@ -13,6 +13,13 @@ const inter = Inter({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const geistPixel = Geist_Pixel({
+  variable: "--font-geist-pixel",
+  weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
@@ -53,7 +60,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${geistMono.variable}`}
+      className={`${inter.variable} ${geistMono.variable} ${geistPixel.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />

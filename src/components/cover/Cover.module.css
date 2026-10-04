@@ -2,11 +2,12 @@
   padding-bottom: clamp(var(--space-9), 6vw, var(--space-11));
 }
 
-/* --- Hero ------------------------------------------------------------------- */
+/* --- Hero (Medium-style full-bleed yellow band) ----------------------------- */
 .hero {
-  padding-top: clamp(var(--space-8), 7vw, var(--space-11));
-  padding-bottom: clamp(var(--space-8), 6vw, var(--space-10));
-  border-bottom: var(--border-hair) solid var(--color-border-subtle);
+  /* Break out of the article gutter so the yellow spans the full main column */
+  margin: 0 calc(-1 * var(--gutter));
+  padding: clamp(var(--space-8), 7vw, var(--space-11)) var(--gutter);
+  background: var(--color-yellow);
 }
 
 .heroLogo {
@@ -14,10 +15,12 @@
 }
 
 .title {
-  font-size: clamp(var(--text-3xl), 8vw, var(--text-5xl));
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-tighter);
-  font-weight: var(--weight-bold);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(var(--text-2xl), 7vw, 3.5rem);
+  line-height: 1.04;
+  letter-spacing: 0;
+  color: #191919;
 }
 
 .titleLine {
@@ -35,7 +38,7 @@
   font-size: clamp(var(--text-md), 2.4vw, var(--text-lg));
   line-height: var(--leading-snug);
   letter-spacing: var(--tracking-tight);
-  color: var(--color-text-secondary);
+  color: #242424;
   text-wrap: pretty;
 }
 
@@ -69,8 +72,8 @@
   align-items: center;
   padding: 12px 20px;
   border-radius: var(--radius-full);
-  border: var(--border-hair) solid var(--color-border);
-  color: var(--color-text);
+  border: 1px solid rgba(0, 0, 0, 0.28);
+  color: #191919;
   font-size: var(--text-base);
   font-weight: var(--weight-medium);
   transition: border-color var(--dur-fast) var(--ease-out),
@@ -78,8 +81,8 @@
 }
 
 .secondaryCta:hover {
-  border-color: var(--color-border-strong);
-  background: var(--color-surface-hover);
+  border-color: #191919;
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .meta {
@@ -94,7 +97,7 @@
   flex-direction: column;
   gap: 4px;
   padding-top: var(--space-3);
-  border-top: var(--border-thin) solid var(--color-border);
+  border-top: var(--border-thin) solid rgba(0, 0, 0, 0.18);
 }
 
 .metaLabel {
@@ -102,13 +105,13 @@
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .metaValue {
   font-size: var(--text-base);
   font-weight: var(--weight-medium);
-  color: var(--color-text);
+  color: #191919;
 }
 
 @media (max-width: 640px) {
@@ -119,10 +122,11 @@
 
 /* --- Shared block title ----------------------------------------------------- */
 .blockTitle {
-  font-size: clamp(var(--text-xl), 3.4vw, var(--text-2xl));
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-tight);
-  font-weight: var(--weight-semibold);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(var(--text-lg), 3.2vw, var(--text-xl));
+  line-height: 1.12;
+  letter-spacing: 0;
   margin-bottom: var(--space-6);
 }
 
@@ -202,8 +206,8 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-sm);
-  background: var(--color-surface-2);
-  color: var(--color-text-secondary);
+  background: var(--color-yellow);
+  color: #191919;
 }
 
 .cardBody {

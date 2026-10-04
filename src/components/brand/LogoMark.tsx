@@ -19,7 +19,7 @@ export function LogoMark({
       aria-hidden
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/logo.png" alt="" className={s.img} />
+      <img src="/logo.svg" alt="" className={s.img} />
     </span>
   );
 }
