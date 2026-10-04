@@ -80,6 +80,8 @@
     Roboto, Helvetica, Arial, sans-serif;
   --font-mono: var(--font-geist-mono), "SF Mono", "JetBrains Mono", ui-monospace,
     Menlo, Monaco, "Cascadia Code", monospace;
+  /* Pixel display face for the main title (loaded via next/font) */
+  --font-display: var(--font-geist-pixel), var(--font-sans);
 
   /* Modular type scale (1.200 minor third, base 16px) */
   --text-2xs: 0.6875rem;  /* 11 */
@@ -170,52 +172,61 @@
   /* -------------------------------------------------------------------------
      2 · SEMANTIC (light theme defaults)
      ---------------------------------------------------------------------- */
-  --color-bg: var(--gray-25);
-  --color-bg-sunken: var(--gray-50);
-  --color-surface: var(--gray-0);
-  --color-surface-2: var(--gray-50);
-  --color-surface-hover: var(--gray-50);
-  --color-surface-active: var(--gray-100);
+  /* Medium-inspired palette (light theme) */
+  --color-bg: #ffffff;
+  --color-bg-sunken: #fafafa;
+  --color-surface: #ffffff;
+  --color-surface-2: #fafafa;
+  --color-surface-hover: #f7f7f7;
+  --color-surface-active: #f2f2f2;
+  --color-surface-subtle: #f2f2f2; /* tag pills, subtle fills */
 
-  --color-text: var(--gray-950);
-  --color-text-secondary: var(--gray-700);
-  --color-text-muted: var(--gray-500);
-  --color-text-faint: var(--gray-400);
-  --color-text-inverse: var(--gray-25);
+  --color-text: #242424;
+  --color-text-secondary: #6b6b6b;
+  --color-text-muted: #8c8c8c;
+  --color-text-faint: #a8a8a8;
+  --color-text-inverse: #ffffff;
 
-  --color-border: var(--gray-200);
-  --color-border-subtle: var(--gray-150);
-  --color-border-strong: var(--gray-300);
+  --color-border: #e6e6e6;
+  --color-border-subtle: #ededed;
+  --color-border-strong: #d4d4d4;
 
-  --color-focus: var(--blue-500);
+  --color-focus: var(--medium-green);
 
-  /* Accent semantics (editorial colour code) */
-  --color-essential: var(--red-500);
-  --color-essential-bg: var(--red-tint);
-  --color-context: var(--blue-500);
-  --color-context-bg: var(--blue-tint);
-  --color-action: var(--green-500);
-  --color-action-bg: var(--green-tint);
-  --color-warn: var(--amber-500);
-  --color-warn-bg: var(--amber-tint);
+  /* Medium brand primitives */
+  --medium-yellow: #ffc017;
+  --medium-green: #1a8917;
+  --medium-green-hover: #156d12;
+  --medium-green-tint: #eef5ec;
+  --color-yellow: var(--medium-yellow);
 
-  /* Interactive accent = ink (monochrome-first) */
-  --color-accent: var(--gray-950);
-  --color-accent-contrast: var(--gray-0);
+  /* Accent semantics — green is the single accent; warnings keep a muted amber */
+  --color-essential: var(--medium-green);
+  --color-essential-bg: var(--medium-green-tint);
+  --color-context: var(--color-text-secondary);
+  --color-context-bg: var(--color-surface-subtle);
+  --color-action: var(--medium-green);
+  --color-action-bg: var(--medium-green-tint);
+  --color-warn: #8a6a00;
+  --color-warn-bg: #fbf2cf;
 
-  /* Brand accent (decorative): chapter numbers, active nav, progress, links */
-  --color-brand: var(--indigo-500);
-  --color-brand-strong: var(--indigo-600);
-  --color-brand-bg: var(--indigo-tint);
+  /* Interactive accent = near-black (primary pill buttons) */
+  --color-accent: #191919;
+  --color-accent-contrast: #ffffff;
+
+  /* Brand accent (decorative): chapter numbers, active nav, links */
+  --color-brand: var(--medium-green);
+  --color-brand-strong: var(--medium-green-hover);
+  --color-brand-bg: var(--medium-green-tint);
 
   /* App/logo container — intentionally dark in BOTH themes (not overridden) */
   --color-logo-bg: #111114;
 
   /* Code surfaces */
-  --color-code-bg: var(--gray-950);
+  --color-code-bg: #191919;
   --color-code-text: #ededea;
-  --color-code-inline-bg: var(--gray-100);
-  --color-code-inline-text: var(--gray-900);
+  --color-code-inline-bg: #f2f2f2;
+  --color-code-inline-text: #242424;
 
   color-scheme: light;
 }
@@ -230,6 +241,8 @@
   --color-surface-2: var(--gray-850);
   --color-surface-hover: var(--gray-850);
   --color-surface-active: var(--gray-800);
+  --color-surface-subtle: var(--gray-850);
+  --color-yellow: var(--medium-yellow);
 
   --color-text: #f4f4f0;
   --color-text-secondary: #c0c0b8;
@@ -241,23 +254,23 @@
   --color-border-subtle: #262622;
   --color-border-strong: #45453f;
 
-  --color-focus: var(--blue-400);
+  --color-focus: #4caf50;
 
-  --color-essential: var(--red-400);
-  --color-essential-bg: var(--red-tint-dark);
-  --color-context: var(--blue-400);
-  --color-context-bg: var(--blue-tint-dark);
-  --color-action: var(--green-400);
-  --color-action-bg: var(--green-tint-dark);
+  --color-essential: #4caf50;
+  --color-essential-bg: #15301a;
+  --color-context: var(--color-text-secondary);
+  --color-context-bg: var(--gray-850);
+  --color-action: #4caf50;
+  --color-action-bg: #15301a;
   --color-warn: #d9a441;
   --color-warn-bg: var(--amber-tint-dark);
 
   --color-accent: #f4f4f0;
   --color-accent-contrast: var(--gray-950);
 
-  --color-brand: var(--indigo-400);
-  --color-brand-strong: var(--indigo-300);
-  --color-brand-bg: var(--indigo-tint-dark);
+  --color-brand: #4caf50;
+  --color-brand-strong: #66bb6a;
+  --color-brand-bg: #15301a;
 
   --color-code-bg: #050504;
   --color-code-text: #e6e6e2;
@@ -281,6 +294,8 @@
     --color-surface-2: var(--gray-850);
     --color-surface-hover: var(--gray-850);
     --color-surface-active: var(--gray-800);
+    --color-surface-subtle: var(--gray-850);
+    --color-yellow: var(--medium-yellow);
     --color-text: #f4f4f0;
     --color-text-secondary: #c0c0b8;
     --color-text-muted: #8f8f86;
@@ -289,20 +304,20 @@
     --color-border: #33332e;
     --color-border-subtle: #262622;
     --color-border-strong: #45453f;
-    --color-focus: var(--blue-400);
-    --color-essential: var(--red-400);
-    --color-essential-bg: var(--red-tint-dark);
-    --color-context: var(--blue-400);
-    --color-context-bg: var(--blue-tint-dark);
-    --color-action: var(--green-400);
-    --color-action-bg: var(--green-tint-dark);
+    --color-focus: #4caf50;
+    --color-essential: #4caf50;
+    --color-essential-bg: #15301a;
+    --color-context: var(--color-text-secondary);
+    --color-context-bg: var(--gray-850);
+    --color-action: #4caf50;
+    --color-action-bg: #15301a;
     --color-warn: #d9a441;
     --color-warn-bg: var(--amber-tint-dark);
     --color-accent: #f4f4f0;
     --color-accent-contrast: var(--gray-950);
-    --color-brand: var(--indigo-400);
-    --color-brand-strong: var(--indigo-300);
-    --color-brand-bg: var(--indigo-tint-dark);
+    --color-brand: #4caf50;
+    --color-brand-strong: #66bb6a;
+    --color-brand-bg: #15301a;
     --color-code-bg: #050504;
     --color-code-text: #e6e6e2;
     --color-code-inline-bg: var(--gray-850);
