@@ -44,9 +44,8 @@
   gap: var(--space-3);
   margin-bottom: var(--space-5);
   padding: 6px 12px 6px 8px;
-  border: var(--border-hair) solid var(--color-border);
-  border-radius: var(--radius-full);
-  background: var(--color-surface);
+  border: none;
+  background: var(--color-yellow);
 }
 
 .eyebrowIcon {
@@ -60,15 +59,15 @@
 }
 
 .eyebrowText {
-  font-size: var(--text-2xs);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-caps);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--color-text-secondary);
+  color: #191919;
 }
 
 .eyebrowIndex {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   color: var(--color-brand);
 }
 
