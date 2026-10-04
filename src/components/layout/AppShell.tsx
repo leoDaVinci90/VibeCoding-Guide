@@ -243,7 +243,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </header>
 
           <div className={styles.layout}>
-            <main id="content" className={styles.article}>
+            <main
+              id="content"
+              className={styles.article}
+              data-home={activeSlug === null || undefined}
+            >
               {children}
             </main>
           </div>

@@ -254,6 +254,11 @@
   margin: 0 auto;
 }
 
+/* Home: let the cover hero bleed to the full main-column width */
+.article[data-home] {
+  max-width: none;
+}
+
 .overlay {
   display: none;
 }
