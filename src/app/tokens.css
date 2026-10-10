@@ -215,6 +215,9 @@
   --color-accent: #191919;
   --color-accent-contrast: #ffffff;
 
+  /* Menu/nav icon ink — theme-aware (dark on the light sidebar) */
+  --color-menu-icon: #191919;
+
   /* Brand accent (decorative): chapter numbers, active nav, links */
   --color-brand: var(--medium-green);
   --color-brand-strong: var(--medium-green-hover);
@@ -268,6 +271,7 @@
 
   --color-accent: #f4f4f0;
   --color-accent-contrast: var(--gray-950);
+  --color-menu-icon: #f4f4f0;
 
   --color-brand: #4caf50;
   --color-brand-strong: #66bb6a;
@@ -316,6 +320,7 @@
     --color-warn-bg: var(--amber-tint-dark);
     --color-accent: #f4f4f0;
     --color-accent-contrast: var(--gray-950);
+    --color-menu-icon: #f4f4f0;
     --color-brand: #4caf50;
     --color-brand-strong: #66bb6a;
     --color-brand-bg: #15301a;

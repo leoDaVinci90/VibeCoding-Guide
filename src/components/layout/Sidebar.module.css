@@ -57,13 +57,13 @@
   place-items: center;
   width: 22px;
   height: 22px;
-  color: #191919;
+  color: var(--color-menu-icon);
   transition: color var(--dur-fast) var(--ease-out);
 }
 
 .chapterRow:hover .chapterIcon,
 .chapterRowActive .chapterIcon {
-  color: #191919;
+  color: var(--color-menu-icon);
 }
 
 .chapterText {
